@@ -55,15 +55,18 @@ api = tweepy.API(auth, parser=tweepy.parsers.JSONParser()) # Set up library to g
 
 #cache
 
+
 my_tweets = api.home_timeline()
 
-#raw-input
+user_input = input("Enter a phrase to look up on Twitter:")
+results = api.search(q=user_input)
+nct_tweet = results["statuses"][0:3]
 
-# for twt in my_tweets:
-# 	print (twt)
-
-first_three = my_tweets[0:3]
-print (first_three)
+for twt in nct_tweet:
+	print("\n")
+	print ("TEXT:", twt["text"])
+	print("CREATED AT:", twt["created_at"])
+	print ("\n")
 
 
 
