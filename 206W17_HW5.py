@@ -53,20 +53,36 @@ api = tweepy.API(auth, parser=tweepy.parsers.JSONParser()) # Set up library to g
 ## 3. Invoke your function, save the return value in a variable, and explore the data you got back!
 ## 4. With what you learn from the data -- e.g. how exactly to find the text of each tweet in the big nested structure -- write code to print out content from 3 tweets, as shown above.
 
-#cache
+
 
 
 my_tweets = api.home_timeline()
 
 user_input = input("Enter a phrase to look up on Twitter:")
 results = api.search(q=user_input)
-nct_tweet = results["statuses"][0:3]
+tweet_status = results["statuses"][0:3]
 
-for twt in nct_tweet:
+
+
+#cache
+cache_fname = "cache_tweet.txt"
+
+
+fobj = open(cache_fname, 'w')
+fobj.write(json.dumps(tweet_status))
+fobj.close
+
+f = open(cache_fname, "r")
+f_str = f.read()
+collected_tweets = json.loads(f_str)
+
+
+
+for twt in collected_tweets:
 	print("\n")
 	print ("TEXT:", twt["text"])
 	print("CREATED AT:", twt["created_at"])
-	print ("\n")
+
 
 
 
